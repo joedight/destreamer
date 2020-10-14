@@ -17,6 +17,7 @@ import { ApiClient } from './ApiClient';
 
 
 const { FFmpegCommand, FFmpegInput, FFmpegOutput } = require('@tedconf/fessonia')();
+const { exec } = require('child_process');
 const tokenCache: TokenCache = new TokenCache();
 export const chromeCacheFolder = '.chrome_data';
 
@@ -183,7 +184,9 @@ async function downloadVideo(videoGUIDs: Array<string>, outputDirectories: Array
         }
 
         const headers: string = 'Authorization: Bearer ' + session.AccessToken;
-
+        exec("mpv --http-header-fields='" + headers + "' '" + video.playbackUrl + "'")
+        return
+        
         if (!argv.noExperiments) {
             await drawThumbnail(video.posterImageUrl, session);
         }
