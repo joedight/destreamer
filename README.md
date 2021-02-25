@@ -2,14 +2,7 @@
   <img src="https://github.com/snobu/destreamer/workflows/Node%20CI/badge.svg" alt="CI build status" />
 </a>
 
-# BREAKING
-
-**destreamer v3.0** is just around the corner. Download speed improvement is astonishing and we have a never before seen photo from the design sessions:<br><br>
-![desilva](https://user-images.githubusercontent.com/6472374/93003437-54a7fd00-f547-11ea-8473-e4602993e69d.jpg)
-
-Help us pick a codename for the new release:<br><br>
-![codename](https://user-images.githubusercontent.com/6472374/93003896-20ced680-f54b-11ea-8be1-2c14e0bd3751.png)<br><br>
-Comment in this thread: https://github.com/snobu/destreamer/issues/223
+**destreamer v3.0** is just around the corner. You can try out a pre-release today by cloning [this branch](https://github.com/snobu/destreamer/tree/aria2c_forRealNow).
 
 ![destreamer](assets/logo.png)
 
@@ -45,7 +38,7 @@ Hopefully this doesn't break the end user agreement for Microsoft Stream. Since 
 
 ## Prereqs
 
-- [**Node.js**][node]: You'll need Node.js version 8.0 or higher. A GitHub Action runs tests on all major Node versions on every commit. One caveat for Node 8, if you get a `Parse Error` with `code: HPE_HEADER_OVERFLOW` you're out of luck and you'll need to upgrade to Node 10+.
+- [**Node.js**][node]: You'll need Node.js version 8.0 or higher. A GitHub Action runs tests on all major Node versions on every commit. One caveat for Node 8, if you get a `Parse Error` with `code: HPE_HEADER_OVERFLOW` you're out of luck and you'll need to upgrade to Node 10+. PLEASE NOTE WE NO LONGER TEST BUILDS AGAINST NODE 8.x. YOU ARE ON YOUR OWN.
 - **npm**: usually comes with Node.js, type `npm` in your terminal to check for its presence
 - [**ffmpeg**][ffmpeg]: a recent version (year 2019 or above), in `$PATH` or in the same directory as this README file (project root).
 - [**git**][git]: one or more npm dependencies require git.
@@ -81,10 +74,15 @@ const browser: puppeteer.Browser = await puppeteer.launch({
 
 Now, change `executablePath` to reflect the path to your browser and profile (i.e. to use Microsoft Edge on Windows):
 ```typescript
-        executablePath: "'C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe' --profile-directory=Default",
+        executablePath: 'C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe',
 ```
+In Linux for Chromium,
+```typescript
+        executablePath: '/usr/bin/chromium-browser',
+```
+Depending on your distro, it may also be `/usr/bin/chromium`. You will have to change it appropriately for Google Chrome.
 
-Note that for Mac/Linux the path will look a little different but no other changes are necessary.
+Note that for Mac the path may look a little different but no other changes are necessary.
 
 You need to rebuild (`npm run build`) every time you change this configuration.
 
@@ -181,9 +179,9 @@ These optional lines must start with white space(s).
 Usage -
 ```
 https://web.microsoftstream.com/video/xxxxxxxx-aaaa-xxxx-xxxx-xxxxxxxxxxxx
- -dir=videos/lessons/week1
+ -dir="videos/lessons/week1"
 https://web.microsoftstream.com/video/xxxxxxxx-aaaa-xxxx-xxxx-xxxxxxxxxxxx
-        -dir=videos/lessons/week2"
+ -dir="videos/lessons/week2"
 ```
 
 ### Title template
